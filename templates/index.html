@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block styling %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 5px 15px;
+        border-radius: 5px;
+        color: white;
+        background-color: #28a745; 
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #218838; 
+    }
+
+    .currency-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    .currency-table th,
+    .currency-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .currency-table th {
+        background-color: #007bff; 
+        color: white;
+    }
+
+    .currency-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .action-icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .edit-icon,
+    .delete-icon {
+        margin-right: 10px;
+        color: inherit; 
+        transition: color 0.3s;
+    }
+
+    .edit-icon:hover {
+        color: #007bff; 
+    }
+
+    .delete-icon:hover {
+        color: #dc3545; 
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+      <h2>Jadval</h2>
+      <a href="{% url 'currency-create' %}" class="btn add-btn">
+          <i class="fas fa-plus-circle" title="Yangi qo'shish"></i> Yangi qo'shish
+      </a> <br>
+      <table class="currency-table">
+          <thead>
+              <tr>
+                  <th>Kod</th>
+                  <th>Sotish baxosi</th>
+                  <th>Olish baxosi</th>
+                  <th>Amaliyot</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for currency in currencies %}
+              <tr>
+                  <td>{{ currency.get_code_display }}</td>
+                  <td>{{ currency.sell_rate }}</td>
+                  <td>{{ currency.buy_rate }}</td>
+                  <td class="action-icons">
+                      <a href="{% url 'currency-edit' currency.pk %}" class="edit-icon">
+                          <i class="fas fa-edit" title="Taxrirlash"></i>
+                      </a>
+                      <a href="{% url 'currency-delete' currency.pk %}" class="delete-icon">
+                          <i class="fas fa-trash" title="O'chirish"></i>
+                      </a>
+                  </td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block styling %}
+
+{% endblock%}
+{% block content %}
+<center>
+  <h2>{% if form.instance.pk %}Taxrirlash{% else %}Yaratish{% endif %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Saqlash</button>
+  </form>
+  <a href="{% url 'currency-list' %}">Ro`yxatga qaytish</a>
+</center>
+{% endblock %}
